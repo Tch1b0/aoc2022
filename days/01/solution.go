@@ -15,17 +15,17 @@ func getInput() [][]int {
 	return input.Process("days/01/input.txt", func(str string) [][]int {
 		elves := stdstrings.Split(str, "\n\n")
 		total := [][]int{}
-		for _, elve := range elves {
-			e := stdstrings.Split(elve, "\n")
-			t := []int{}
-			for _, calorie := range e {
-				i, err := strings.Atoi(calorie)
+		for _, block := range elves {
+			elve := stdstrings.Split(block, "\n")
+			values := []int{}
+			for _, calorie := range elve {
+				value, err := strings.Atoi(calorie)
 				if err != nil {
 					panic(err)
 				}
-				t = append(t, i)
+				values = append(values, value)
 			}
-			total = append(total, t)
+			total = append(total, values)
 		}
 		return total
 	})
@@ -41,11 +41,10 @@ func part1() int {
 
 func part2() int {
 	c := getInput()
-	tops := []int{}
 	sums := array.Map(c, func(elve []int, _ int) int {
 		return math.Sum(elve)
 	})
-	tops = math.Sort(sums)
+	tops := math.Sort(sums)
 	return math.Sum(tops[len(tops)-3:])
 }
 
