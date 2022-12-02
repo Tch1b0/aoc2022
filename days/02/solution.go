@@ -43,10 +43,10 @@ func part1() int {
 	for _, game := range c {
 		var state int
 		game[1] -= 23
-		if game[0] == game[1] {
-			fmt.Println(string(game[1]))
+		enemy, me := game[0], game[1]
+		if enemy == me {
 			state = DRAW
-		} else if game[0] == 'A' && game[1] == 'C' || game[0] == 'C' && game[1] == 'B' || game[0] == 'B' && game[1] == 'A' {
+		} else if enemy == 'A' && me == 'C' || enemy == 'C' && me == 'B' || enemy == 'B' && me == 'A' {
 			state = LOST
 		} else {
 			state = WON
@@ -56,7 +56,7 @@ func part1() int {
 		} else if state == WON {
 			sum += 6
 		}
-		sum += int(game[1]) - 64
+		sum += int(me) - 64
 	}
 	return sum
 }
