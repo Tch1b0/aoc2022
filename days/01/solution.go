@@ -13,9 +13,11 @@ import (
 
 func getInput() [][]int {
 	return input.Process("days/01/input.txt", func(str string) [][]int {
+        // split elve blocks
 		elves := stdstrings.Split(str, "\n\n")
 		total := [][]int{}
 		for _, block := range elves {
+            // split numbers of single elve
 			elve := stdstrings.Split(block, "\n")
 			values := []int{}
 			for _, calorie := range elve {
@@ -44,6 +46,8 @@ func part2() int {
 	sums := array.Map(c, func(elve []int, _ int) int {
 		return math.Sum(elve)
 	})
+
+    // Get top 3 by sorting the array
 	tops := math.Sort(sums)
 	return math.Sum(tops[len(tops)-3:])
 }
