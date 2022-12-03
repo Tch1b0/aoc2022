@@ -1,0 +1,1 @@
+print(max(map(lambda elve: sum(int(x) for x in elve.split("\n")),open("days/01/input.txt").read().split("\n\n"))), sum(sorted(map(lambda elve: sum(int(x) for x in elve.split("\n")),open("days/01/input.txt").read().split("\n\n")))[-3:]))
