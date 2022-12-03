@@ -33,9 +33,11 @@ func calcScore(c rune) int {
 
 func part1() int {
 	sum := 0
+
 	for _, item := range getInput() {
 		half := len(item) / 2
 		l, r := item[:half], item[half:]
+
 		for _, c := range l {
 			if stdstrings.Contains(r, string(c)) {
 				sum += calcScore(c)
@@ -58,6 +60,7 @@ func part2() int {
 
 		for _, c := range item {
 			cs := string(c)
+
 			// check if the following two strings contain the character
 			// assumes that len(in) >= i + 3
 			if stdstrings.Contains(in[i+1], cs) && stdstrings.Contains(in[i+2], cs) {
@@ -66,6 +69,7 @@ func part2() int {
 			}
 		}
 	}
+
 	return sum
 }
 
