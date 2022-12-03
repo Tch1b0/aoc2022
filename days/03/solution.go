@@ -21,17 +21,24 @@ func IsUpper(c rune) bool {
 	return c >= 65 && c <= 90
 }
 
+func calcScore(c rune) int {
+	if IsUpper(c) {
+		return int(c) - 64 + 26
+	} else if IsLower(c) {
+		return int(c) - 96
+	}
+
+	return 0
+}
+
 func part1() int {
 	sum := 0
 	for _, item := range getInput() {
-		l, r := item[:len(item)/2], item[len(item)/2:]
+		half := len(item) / 2
+		l, r := item[:half], item[half:]
 		for _, c := range l {
 			if stdstrings.Contains(r, string(c)) {
-				if IsUpper(c) {
-					sum += int(c) - 64 + 26
-				} else {
-					sum += int(c) - 96
-				}
+				sum += calcScore(c)
 				break
 			}
 		}
@@ -44,18 +51,17 @@ func part2() int {
 	sum := 0
 	in := getInput()
 	for i, item := range in {
+		// only let through the first of a group of 3
 		if i%3 != 0 {
 			continue
 		}
 
 		for _, c := range item {
 			cs := string(c)
+			// check if the following two strings contain the character
+			// assumes that len(in) >= i + 3
 			if stdstrings.Contains(in[i+1], cs) && stdstrings.Contains(in[i+2], cs) {
-				if IsUpper(c) {
-					sum += int(c) - 64 + 26
-				} else {
-					sum += int(c) - 96
-				}
+				sum += calcScore(c)
 				break
 			}
 		}
