@@ -16,8 +16,10 @@ func getCargos() [][]rune {
 		lines := stdstrings.Split(fields[0], "\n")
 
 		for _, field := range lines[:len(lines)-1] {
+			i := 0
 			for j, v := range field {
 				if (j-2)%4 != 0 && v != ' ' {
+					i += 1
 					continue
 				}
 
@@ -25,8 +27,8 @@ func getCargos() [][]rune {
 					staples = append(staples, []rune{})
 				}
 
-				x := (j - 2) / 4
-				staples[x] = append(staples[x], v)
+				staples[i] = append(staples[i], v)
+				i += 1
 			}
 		}
 
@@ -70,9 +72,7 @@ func part1() []rune {
 		n := in[0] - 1
 		fromP, toP := &cargo[in[1]-1], &cargo[in[2]-1]
 		from := cargo[in[1]-1]
-		array.Each(from[len(from)-n:], func(v rune, _ int) {
-			*toP = append(*toP, v)
-		})
+		*toP = append(*toP, from[len(from)-n:]...)
 		*fromP = (*fromP)[:n]
 	}
 
