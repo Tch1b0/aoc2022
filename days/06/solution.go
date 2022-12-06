@@ -11,33 +11,35 @@ func getInput() string {
 	return input.Read("days/06/input.txt")
 }
 
-func part1() int {
+func unique[T comparable](arr []T) []T {
+	n := []T{}
+	for _, v := range arr {
+		if !array.Some(n, func(x T, _ int) bool { return v == x }) {
+			n = append(n, v)
+		}
+	}
+
+	return n
+}
+
+func part1(n int) int {
 	c := getInput()
 
-	for i := 0; i < len(c)-3; i++ {
-		x := []rune(c[i : i+3])
-		fmt.Println(x)
-		dup := false
-		for i, v1 := range x {
-			if array.None(x, func(v2 rune, j int) bool {
-				return v1 == v2 && i != j
-			}) {
-				dup = true
-			}
-		}
-		if !dup {
-			return i + 4
+	for i := 0; i < len(c)-(n-1); i++ {
+		x := []rune(c[i : i+n])
+		if len(unique(x)) == len(x) {
+			return i + n
 		}
 	}
 	return -1
 }
 
 func part2() int {
-	return -1
+	return part1(14)
 }
 
 func main() {
-	fmt.Printf("PART 1: %d\n", part1())
+	fmt.Printf("PART 1: %d\n", part1(4))
 
 	fmt.Printf("PART 2: %d\n", part2())
 }
