@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"strconv"
-	strings "strings"
+	"strings"
 
 	"github.com/Tch1b0/polaris/array"
 	"github.com/Tch1b0/polaris/input"
