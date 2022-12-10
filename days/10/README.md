@@ -1,3 +1,3 @@
-# AOC day 09
+# AOC day 10
 
-[Task](https://adventofcode.com/2022/day/9)
+[Task](https://adventofcode.com/2022/day/10)
