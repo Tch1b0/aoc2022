@@ -84,13 +84,13 @@ func (mt MonkeyTest) String() string {
 	return fmt.Sprintf("MonkeyTest{Divisor: %d, TrueMonkey: %d, FalseMonkey: %d}", mt.Divisor, mt.TrueMonkey, mt.FalseMonkey)
 }
 
-func getInput() []Monkey {
-	return input.Process("./days/11/input.txt", func(str string) []Monkey {
+func getInput() []*Monkey {
+	return input.Process("./days/11/input.txt", func(str string) []*Monkey {
 		lines := strings.Split(strings.ReplaceAll(str, "\r", ""), "\n\n")
-		monkeys := []Monkey{}
+		monkeys := []*Monkey{}
 
 		for _, line := range lines {
-			m := Monkey{}
+			m := &Monkey{}
 			rows := strings.Split(line, "\n")
 
 			// Monkey ##:
@@ -165,7 +165,7 @@ func part1() int {
 				idx := m.Test.Execute(item)
 				monkeys[idx].Items = append(monkeys[idx].Items, item)
 			}
-			monkeys[j].Items = []int{}
+			m.Items = []int{}
 		}
 	}
 
@@ -176,19 +176,22 @@ func part1() int {
 func part2() int {
 	monkeys := getInput()
 	inspections := make([]int, len(monkeys))
+	prod := 1
+
+	for _, m := range monkeys {
+		prod *= m.Test.Divisor
+	}
 
 	for i := 1; i <= 10_000; i++ {
 		for j, m := range monkeys {
 			inspections[j] += len(m.Items)
 			for _, item := range m.Items {
 				item = m.Operation.Execute(item)
+				item = item % prod
 				idx := m.Test.Execute(item)
 				monkeys[idx].Items = append(monkeys[idx].Items, item)
 			}
-			monkeys[j].Items = []int{}
-		}
-		if i == 20 {
-			fmt.Println(inspections)
+			m.Items = []int{}
 		}
 	}
 
