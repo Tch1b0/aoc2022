@@ -6,35 +6,11 @@ import (
 	"strings"
 
 	"github.com/Tch1b0/polaris/input"
-	"github.com/Tch1b0/polaris/math"
 )
 
 type Signal struct {
 	Left  []any
 	Right []any
-}
-
-func isInt(v any) bool {
-    _, ok := v.(int)
-    return ok
-}
-
-func (s Signal) countCompare() bool {
-    var sm []int
-    sm, ok := smaller.([]int)
-    if !ok {
-        sm = []int{smaller.(int)}
-    }
-    
-    var bm []int
-    bm, ok = bigger.([]int)
-    if !ok {
-        bm = []int{bigger.(int)}
-    }
-    
-    for i := 0; i < math.Min([]int{len(sm), len(bm)}) {
-
-    }
 }
 
 func getInput() []Signal {
